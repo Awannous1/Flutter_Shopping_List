@@ -9,11 +9,11 @@ class GroceryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Groceries'),
+        title: const Text('Grocry List'),
       ),
       body: ListView.builder(
         itemCount: groceryItems.length,
-        itemBuilder: (ctx, index) => ListTile(
+        itemBuilder: (cts, index) => ListTile(
           title: Text(groceryItems[index].name),
           leading: Container(
             width: 24,
