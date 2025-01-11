@@ -23,12 +23,12 @@ class _NewItemState extends State<NewItem> {
   var _entredQuantity = 1;
   var _selectedCategory = categories[Categories.vegetables]!;
 
-  void _saveItem() {
+  void _saveItem() async {
     if (_keyForm.currentState!.validate()) {
       _keyForm.currentState!.save();
       final url = Uri.https('flutter-pro-1-13f1c-default-rtdb.firebaseio.com',
           'shopping-list.json');
-      http.post(
+      final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: json.encode(
@@ -39,7 +39,13 @@ class _NewItemState extends State<NewItem> {
           },
         ),
       );
-      // Navigator.of(context).pop();
+      print(response.body);
+      print(response.statusCode);
+
+      if (!context.mounted) {
+        return;
+      }
+      Navigator.of(context).pop();
     }
   }
 
@@ -148,7 +154,7 @@ class _NewItemState extends State<NewItem> {
                   ),
                   ElevatedButton(
                     onPressed: _saveItem,
-                    child: const Text('Add'),
+                    child: const Text('Add Item'),
                   ),
                 ],
               ),
